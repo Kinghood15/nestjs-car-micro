@@ -20,8 +20,10 @@ export class CarService {
   }
 
   async findOne(id: string): Promise<Car> {
-    this.carClient.emit('find', new FindOneEvent(id));
-    return await this.model.findOne({ _id: new mongoose.Types.ObjectId(id) });
+    const car = await this.model.findOne({ _id: new mongoose.Types.ObjectId(id) });
+    console.log("Send api gateway:",id,car.name)
+    this.carClient.emit('find', new FindOneEvent(id,car.name));
+    return car;
   }
 
   async create(createCarDto: CreateCarDto): Promise<Car> {

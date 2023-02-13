@@ -11,9 +11,16 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @EventPattern('find')
+  @EventPattern('get')
   handleOrderCreated(data: any) {
-    console.log(data);
-    this.appService.handleOrderCreated(data)
+    console.log(data,'user send service');
+
+    this.appService.findOne(data);
+  }
+  @EventPattern('gets')
+  handleOrderUserCreated(data: any) {
+    console.log(data,'user find service');
+
+    this.appService.findOne(data);
   }
 }
